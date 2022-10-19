@@ -77,10 +77,14 @@ def main():
 
     #Agregando supuesto estadístico 1 y 2
     sE1 = tk.StringVar()
-    sE1.set("S.E.1: ")
+    sE1.set("S.S.0: ")
 
     sE2 = tk.StringVar()
-    sE2.set("S.E.2: ")
+    sE2.set("S.S.1: ")
+
+    #Agregando Curtosis
+    kurt = tk.StringVar()
+    kurt.set("Curtosis")
 
 
     #------------------------------------------------------------
@@ -241,9 +245,12 @@ def main():
         desviacionE.set("D.E.: " + str(round(salida[14],2)))
 
         #Supestos estadísticos
-        sE1.set("S.E.1: " + str(salida[15]))
+        sE1.set("S.S.0: " + str(salida[15]))
 
-        sE2.set("S.E.2: " + str(salida[16]))
+        sE2.set("S.S.1: " + str(salida[16]))
+
+        #Curtosis
+        kurt.set("Curtosis: " + str(round(salida[17],4)))
 
         #print(salida)
 
@@ -320,18 +327,22 @@ def main():
     
     de_T = tk.Label(frame0, textvariable=desviacionE)
     de_T.config(bg="#52BE80")
-    de_T.grid(column=4, row=2)
+    de_T.grid(column=5, row=2)
 
     #---------------Mostrando Supestos Estadísticos----------------------
 
     sE1_T = tk.Label(frame0, textvariable=sE1)
     sE1_T.config(bg="#F4D03F")
-    sE1_T.grid(column=4,row=3)
+    sE1_T.grid(column=5,row=3)
 
     sE2_T = tk.Label(frame0, textvariable=sE2)
     sE2_T.config(bg="#F4D03F")
-    sE2_T.grid(column=4, row=4)
+    sE2_T.grid(column=5, row=4)
 
+    #-------------------- Mostrando Curtosis------------------------------
+    kurt_T = tk.Label(frame0, textvariable=kurt)
+    kurt_T.config(bg="#F4D03F")
+    kurt_T.grid(column=5, row=5)
 
 
     root.mainloop()

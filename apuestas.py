@@ -15,7 +15,7 @@ def calculadora(cash, cantidadBeneficios,listaValores, listaNombres):
 
 
     #Organizando de mayor a menor
-    #Enconstrando máximo valor
+    #Encontrando máximo valor
     a = max(listaValores)
     #Indice del máximo valor
     indice = listaValores.index(a)
@@ -107,14 +107,19 @@ def calculadora(cash, cantidadBeneficios,listaValores, listaNombres):
     #Listade xi
     listaxi=[]
 
+
     #Sacando porcentaje
     for i in poblacion:
 
         d = (i*(1/3))/media
         listaxi.append(d)
 
-    #Variable fi, siempre da 1
-    fi = 1
+
+    #Variable fi o xt, no siempre da 1
+    fi = 0
+    for i in listaxi:
+        fi+=i
+
 
     #Sacando yi
     listayi=[]
@@ -145,7 +150,7 @@ def calculadora(cash, cantidadBeneficios,listaValores, listaNombres):
     table2 = [[nomABC],[listaPorcentaje]]
 
     #print("Porcentajes")
-    #print(tabulate(table2, tablefmt="rst"))
+    print(tabulate(table2, tablefmt="rst"))
 
     #print("Cantidades de Dinero")
 
@@ -217,23 +222,49 @@ def calculadora(cash, cantidadBeneficios,listaValores, listaNombres):
 
     rentabilidadl = ((l*a*100)/totalInversion) - 100
     
+    #----------------------------------------------------------------------
+    #Sacando la media real, valor esperado.
+    #a,b,c son las tarifas dadas, a es peor.
+    mediaReal = (a*listaPorcentaje[0])+(b*listaPorcentaje[1])+(c*listaPorcentaje[2])
+
+    varainzaReal = (((a-mediaReal)**2)*listaPorcentaje[0])+(((b-mediaReal)**2)*listaPorcentaje[1])+(((c-mediaReal)**2)*listaPorcentaje[2])
+
+    deReal = varainzaReal**0.5
+
     #----------------------------------------------------------------------    
     #Sacando Supuestos Estadísticos de control
     #c y b deben estar por debajo de la media
     supuestoE1 = False
 
-    if c<media and b<media:
+    z1 = mediaReal+deReal
+
+    z_1 = mediaReal-deReal
+
+    print(a)
+    print(b)
+    print(c)
+    print(abs(z1-a))
+    print(abs(z_1-c))
+
+    if abs(z1-a)>abs(z_1-c):
 
         supuestoE1 = True
     
-    #La diferencia de a y b debe ser igual o mayor 
+    #Simetrìa positiva, se desea.
     #a la desviación estándar
     supuestoE2 = False
 
     #Final - inicial
-    if (a-b) >= de:
+    if b <= mediaReal and c<= mediaReal:
 
         supuestoE2 = True
+
+    #----------------------------------------------------------------------
+    #Curtosis
+    curtosisNum = (((a-mediaReal)**4)*listaPorcentaje[0])+(((b-mediaReal)**4)*listaPorcentaje[1])+(((c-mediaReal)**4)*listaPorcentaje[2])
+    curtosisDen = deReal**4
+    curtosis = (curtosisNum / curtosisDen)-3
+    print(curtosis)
 
     #----------------------------------------------------------------------
     #Devuelve una lista con los valores
@@ -242,5 +273,5 @@ def calculadora(cash, cantidadBeneficios,listaValores, listaNombres):
     totalInversion,
     anombre, bnombre, cnombre, 
     racional, c,
-    media, varianza, de,
-    supuestoE1, supuestoE2]
+    mediaReal, varainzaReal, deReal,
+    supuestoE1, supuestoE2, curtosis]
