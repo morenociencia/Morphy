@@ -174,8 +174,12 @@ def calculadora(cash, cantidadBeneficios,listaValores, listaNombres):
     rr = diccBase1[bnombre]
     tetta = 1 + cantidadBeneficios  
 
-
-    f = (k*(c/tetta)) / ((rr)/tetta)
+    #
+    #f = (k*(c/tetta)) / ((rr)/tetta)
+    #print(f)
+    #Simplificando
+    f = (k*c)/rr
+    #print(f)
 
     #c es la tasa de k
     #Cuanto le debe apostar a la pero opción
@@ -264,7 +268,21 @@ def calculadora(cash, cantidadBeneficios,listaValores, listaNombres):
     curtosisNum = (((a-mediaReal)**4)*listaPorcentaje[0])+(((b-mediaReal)**4)*listaPorcentaje[1])+(((c-mediaReal)**4)*listaPorcentaje[2])
     curtosisDen = deReal**4
     curtosis = (curtosisNum / curtosisDen)-3
-    print(curtosis)
+    print("Su curtosis es de: " + str(curtosis))
+
+    #----------------------------------------------------------------------
+    #Skewness
+    skewNum = (((a-mediaReal)**3)*listaPorcentaje[0])+(((b-mediaReal)**3)*listaPorcentaje[1])+(((c-mediaReal)**3)*listaPorcentaje[2])
+    skewDen = varainzaReal**(3/2)
+    skew = (skewNum/ skewDen)
+    print("Su skewness es de: " + str(skew))
+
+    #----------------------------------------------------------------------
+    #Minimización de riesgo máximo
+    #Dinero Total
+    Dt = (k*c)/tetta
+    j = Dt / (Dt - f- k)
+
 
     #----------------------------------------------------------------------
     #Devuelve una lista con los valores
@@ -274,4 +292,4 @@ def calculadora(cash, cantidadBeneficios,listaValores, listaNombres):
     anombre, bnombre, cnombre, 
     racional, c,
     mediaReal, varainzaReal, deReal,
-    supuestoE1, supuestoE2, curtosis]
+    supuestoE1, supuestoE2, curtosis, skew, j]

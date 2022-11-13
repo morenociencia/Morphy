@@ -86,6 +86,14 @@ def main():
     kurt = tk.StringVar()
     kurt.set("Curtosis")
 
+    #Agregando Skewness
+    skewness = tk.StringVar()
+    skewness.set("Skewness")
+
+    #Agregando minRiesgo j
+    jmin = tk.StringVar()
+    jmin.set("j minimo")
+
 
     #------------------------------------------------------------
 
@@ -252,6 +260,12 @@ def main():
         #Curtosis
         kurt.set("Curtosis: " + str(round(salida[17],4)))
 
+        #skewness
+        skewness.set("Skew: " + str(round(salida[18],4)))
+
+        #jmin
+        jmin.set("j: " + str(round(salida[19],4)))
+
         #print(salida)
 
 
@@ -343,6 +357,17 @@ def main():
     kurt_T = tk.Label(frame0, textvariable=kurt)
     kurt_T.config(bg="#F4D03F")
     kurt_T.grid(column=5, row=5)
+
+    #-------------------- Mostrando Skewness------------------------------
+    skew_T = tk.Label(frame0, textvariable=skewness)
+    skew_T.config(bg="#F4D03F")
+    skew_T.grid(column=5, row=6)
+
+    #-------------------- Mostrando j minimo------------------------------
+    jmin_T = tk.Label(frame0, textvariable=jmin)
+    jmin_T.config(bg="#5DADE2")
+    jmin_T.grid(column=5, row=7)
+
 
 
     root.mainloop()
